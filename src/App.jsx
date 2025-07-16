@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import Button from './components/ui/button'
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent } from './components/ui/card';
 import { BookOpenText, Brain } from "lucide-react";
-import planoEtapa1 from "@/data/planoEtapa1.json";
+import planoEtapa1 from './data/planoEtapa1.json';
 
 export default function App() {
   const [index, setIndex] = useState(0);
