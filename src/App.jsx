@@ -1,58 +1,78 @@
+// AgroIntellect - Plataforma com layout moderno e navegação por etapas
+
 import { useState } from "react";
-import { BookOpenText, Brain } from "lucide-react";
-import planoEtapa1 from "./data/planoEtapa1.json";
+import { BookOpen, Layers, GraduationCap } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import planoEtapa1 from "@/data/planoEtapa1.json";
+
+const etapas = [
+  {
+    nome: "Etapa 1",
+    descricao: "Fundamentos",
+    plano: planoEtapa1,
+  },
+  // Etapas futuras: Etapa 2 e Etapa 3 podem ser adicionadas aqui
+];
 
 export default function App() {
-  const [index, setIndex] = useState(0);
-  const [completed, setCompleted] = useState(false);
-  const aulaAtual = planoEtapa1[index];
+  const [etapaAtual, setEtapaAtual] = useState(0);
+  const [aulaAtual, setAulaAtual] = useState(0);
+  const etapa = etapas[etapaAtual];
+  const aula = etapa.plano[aulaAtual];
 
-  const gerarProximaAula = () => {
-    if (index + 1 < planoEtapa1.length) {
-      setIndex(index + 1);
-      setCompleted(false);
+  const proximaAula = () => {
+    if (aulaAtual + 1 < etapa.plano.length) {
+      setAulaAtual(aulaAtual + 1);
     }
   };
 
-  const marcarComoConcluida = () => {
-    setCompleted(true);
-  };
-
   return (
-    <div className="min-h-screen bg-white text-gray-900 p-4 md:p-8">
-      <h1 className="text-3xl font-bold text-green-700 mb-2">AgroIntellect</h1>
-      <p className="text-base mb-6">Sua plataforma de estudos com o Professor Dr. Caio Valverde</p>
+    <div className="flex min-h-screen bg-gray-100">
+      {/* Sidebar */}
+      <aside className="w-64 bg-white border-r shadow-md p-6">
+        <h1 className="text-2xl font-bold text-green-700 mb-6">AgroIntellect</h1>
+        <nav className="space-y-4">
+          {etapas.map((etapa, idx) => (
+            <div key={idx}>
+              <Button
+                variant={etapaAtual === idx ? "default" : "ghost"}
+                className="w-full justify-start"
+                onClick={() => {
+                  setEtapaAtual(idx);
+                  setAulaAtual(0);
+                }}
+              >
+                <Layers className="mr-2" /> {etapa.nome}
+              </Button>
+            </div>
+          ))}
+        </nav>
+      </aside>
 
-      <div className="mb-6 p-4 border border-gray-200 rounded-xl shadow">
-        <h2 className="text-xl font-semibold flex items-center gap-2">
-          <BookOpenText className="text-green-700" /> {aulaAtual.titulo}
-        </h2>
-        <p className="mt-2">{aulaAtual.descricao}</p>
+      {/* Conteúdo principal */}
+      <main className="flex-1 p-8">
+        <div className="mb-6">
+          <h2 className="text-xl font-semibold flex items-center gap-2">
+            <GraduationCap className="text-green-600" /> {etapa.nome} — {etapa.descricao}
+          </h2>
+        </div>
 
-        <button
-          onClick={marcarComoConcluida}
-          className="mt-4 bg-emerald-600 text-white px-4 py-2 rounded hover:bg-emerald-700"
-        >
-          ✅ Marcar como concluída
-        </button>
+        <div className="bg-white rounded-xl shadow p-6">
+          <h3 className="text-lg font-semibold flex items-center gap-2 mb-2">
+            <BookOpen className="text-green-700" /> {aula.titulo}
+          </h3>
+          <p className="text-gray-700 mb-4">{aula.descricao}</p>
 
-        {completed && (
-          <div className="text-green-700 font-semibold mt-2">
-            Aula marcada como concluída!
+          <div className="flex gap-4">
+            <Button
+              onClick={proximaAula}
+              className="bg-green-600 hover:bg-green-700"
+            >
+              📘 Gerar próxima aula
+            </Button>
           </div>
-        )}
-
-        <button
-          onClick={gerarProximaAula}
-          className="mt-4 ml-2 bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
-        >
-          📘 Gerar próxima aula
-        </button>
-      </div>
-
-      <div className="text-sm text-gray-500 flex items-center gap-2">
-        <Brain className="w-4 h-4" /> Etapa atual: Fundamentos (Etapa 1)
-      </div>
+        </div>
+      </main>
     </div>
   );
 }
