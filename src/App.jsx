@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { BookOpen, Layers, GraduationCap } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Button } from './components/ui/button';
 import planoEtapa1 from "@/data/planoEtapa1.json";
 
 const etapas = [
