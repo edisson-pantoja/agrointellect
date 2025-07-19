@@ -1,0 +1,20 @@
+[
+  {
+    "etapa": 1,
+    "ordem": 1,
+    "titulo": "Matemática Agrária - Parte I",
+    "descricao": "Unidades de medida, área, volume e conversão aplicadas ao campo."
+  },
+  {
+    "etapa": 1,
+    "ordem": 2,
+    "titulo": "Matemática Agrária - Parte II",
+    "descricao": "Regra de três, proporções e rendimento."
+  },
+  {
+    "etapa": 1,
+    "ordem": 3,
+    "titulo": "Estatística Geral - Parte I",
+    "descricao": "Noções básicas, medidas de tendência central e dispersão."
+  }
+]
